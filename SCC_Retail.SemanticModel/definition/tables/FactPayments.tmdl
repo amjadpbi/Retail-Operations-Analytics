@@ -1,0 +1,91 @@
+table FactPayments
+	lineageTag: a58716c7-8899-43d6-86e5-afe170a15940
+
+	column PaymentKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 88819ed7-68a0-46fa-ab96-d3913e230c5e
+		summarizeBy: count
+		sourceColumn: PaymentKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 99d86f9c-8a1b-4e3b-bdc4-6298abcd6fb9
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column PaymentMethodKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 8d27d069-08a8-4f05-b3d8-8e02fd74f0e1
+		summarizeBy: none
+		sourceColumn: PaymentMethodKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column BusinessUnitKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 80f8d0d0-364b-40ac-8093-84ef879c71fc
+		summarizeBy: none
+		sourceColumn: BusinessUnitKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OpeningBalance
+		dataType: double
+		lineageTag: 041e5799-ccb7-4240-9362-8d9906f97a83
+		summarizeBy: sum
+		sourceColumn: OpeningBalance
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TotalCollected
+		dataType: double
+		lineageTag: b65576ba-f845-44fd-8ad0-8c65e52ea70c
+		summarizeBy: sum
+		sourceColumn: TotalCollected
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TotalPaid
+		dataType: double
+		lineageTag: f87d4c97-55a9-447e-bed5-923d9b2c18b3
+		summarizeBy: sum
+		sourceColumn: TotalPaid
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ClosingBalance
+		dataType: double
+		lineageTag: 331ea5d7-3b43-42c3-98dd-73f4cb0691ed
+		summarizeBy: sum
+		sourceColumn: ClosingBalance
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition FactPayments = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-HATC9ED"),
+				    RetailBI_Dev = Source{[Name="RetailBI_Dev"]}[Data],
+				    dbo_FactPayments = RetailBI_Dev{[Schema="dbo",Item="FactPayments"]}[Data]
+				in
+				    dbo_FactPayments
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,115 @@
+table FactPurchases
+	lineageTag: cf27242c-718f-4b71-818f-b3f952b482ab
+
+	column PurchaseKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 0bb60633-3976-4185-93ca-08aee7128cc8
+		summarizeBy: count
+		sourceColumn: PurchaseKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: da233e27-1a7e-448e-bc31-22c714e52873
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 6132a1e2-d2bd-4cf4-8756-bc0d005be87c
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column SupplierKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 9256298f-b300-482e-bbe1-b0a4bb61475c
+		summarizeBy: none
+		sourceColumn: SupplierKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column BusinessUnitKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 692bb62a-2c62-4b61-b4e3-70b4cdccace4
+		summarizeBy: none
+		sourceColumn: BusinessUnitKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoiceNumber
+		dataType: string
+		lineageTag: a18ed91f-3c76-4b50-acfb-f7e7d184ec2e
+		summarizeBy: none
+		sourceColumn: InvoiceNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: double
+		lineageTag: 1f252702-df41-4164-97d9-da75d2dd63f9
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UnitPurchasePrice
+		dataType: double
+		lineageTag: 5a4f88c9-8f45-4ed2-91bb-1599f3c6418c
+		summarizeBy: sum
+		sourceColumn: UnitPurchasePrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TotalPurchaseAmount
+		dataType: double
+		lineageTag: 269a4112-cdf0-44b8-a3b5-6f9b0162f867
+		summarizeBy: sum
+		sourceColumn: TotalPurchaseAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PaymentMethodKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 0bd11911-f921-47ea-a6f4-3a3e2e9c5028
+		summarizeBy: count
+		sourceColumn: PaymentMethodKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column PayableInvoiceNumber
+		dataType: string
+		lineageTag: 416da68f-7e58-4507-9c3a-95a04568ecfa
+		summarizeBy: none
+		sourceColumn: PayableInvoiceNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactPurchases = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-HATC9ED"),
+				    RetailBI_Dev = Source{[Name="RetailBI_Dev"]}[Data],
+				    dbo_FactPurchases = RetailBI_Dev{[Schema="dbo",Item="FactPurchases"]}[Data]
+				in
+				    dbo_FactPurchases
+
+	annotation PBI_ResultType = Table
+

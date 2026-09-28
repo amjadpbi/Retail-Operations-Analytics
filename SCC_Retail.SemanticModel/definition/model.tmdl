@@ -1,0 +1,37 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-PK
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["DimCategory","DimBusinessUnit","DimCustomer","DimDate","DimEmployee","DimExpenseAccount","DimPaymentMethod","DimProduct","DimShift","DimSupplier","FactExpenses","FactPayables","FactPayments","FactPurchases","FactReceivables","FactSales","_Measures","Top/Bottom","SupplierRateComparison"]
+
+annotation PBI_ProTooling = ["DaxQueryView_Desktop","DevMode"]
+
+ref table DimCategory
+ref table DimBusinessUnit
+ref table DimCustomer
+ref table DimDate
+ref table DimEmployee
+ref table DimExpenseAccount
+ref table DimPaymentMethod
+ref table DimProduct
+ref table DimShift
+ref table DimSupplier
+ref table FactExpenses
+ref table FactPayables
+ref table FactPayments
+ref table FactPurchases
+ref table FactReceivables
+ref table FactSales
+ref table _Measures
+ref table Top/Bottom
+ref table 'Rank Parameter'
+ref table SupplierRateComparison
+
+ref cultureInfo en-US
+

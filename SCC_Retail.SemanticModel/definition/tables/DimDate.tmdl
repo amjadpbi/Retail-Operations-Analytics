@@ -1,0 +1,142 @@
+table DimDate
+	lineageTag: ae29130b-24eb-445e-a942-1d0e50483f5a
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 0d235a81-1ef6-4532-8469-11b8e3c1b69d
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 401eb2c2-13f9-4567-bf9c-e7172fce69b4
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Day
+		dataType: int64
+		formatString: 0
+		lineageTag: daa61453-78e4-465d-8c14-30d2bd05dfd9
+		summarizeBy: sum
+		sourceColumn: Day
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: 558ad783-3709-4062-9e12-efe867273b10
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthName
+		dataType: string
+		lineageTag: b00cccb3-896e-4a0b-8126-e45ae6dcac64
+		summarizeBy: none
+		sourceColumn: MonthName
+		sortByColumn: Month
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: 4f42658e-b280-4fdb-b7e5-b93dc89a335a
+		summarizeBy: sum
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: c0628af9-2f85-4f20-a14d-b0c08a058055
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekDay
+		dataType: string
+		lineageTag: 2eb037ab-a5da-48b4-a34c-0ea4ea1cae3a
+		summarizeBy: none
+		sourceColumn: WeekDay
+		sortByColumn: WeekDayNumber
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekDayNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: 75ddd933-fecb-457d-89e3-9e477d0dbedb
+		summarizeBy: sum
+		sourceColumn: WeekDayNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsWeekend
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a575ad73-ea03-457c-b387-9856ff2cb359
+		summarizeBy: none
+		sourceColumn: IsWeekend
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekOfYear
+		dataType: int64
+		formatString: 0
+		lineageTag: 537fc4f3-bae3-4db4-89a9-8c9ce0a813d1
+		summarizeBy: sum
+		sourceColumn: WeekOfYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalPeriod
+		dataType: string
+		lineageTag: 9adfce97-6218-45f7-8feb-a8cb1fec6009
+		summarizeBy: none
+		sourceColumn: FiscalPeriod
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Short Month' = ```
+			FORMAT('DimDate'[Date], "MMM")
+			
+			```
+		lineageTag: 03188ef4-4b2d-4895-b29c-729639de5620
+		summarizeBy: none
+		sortByColumn: Month
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimDate = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-HATC9ED"),
+				    RetailBI_Dev = Source{[Name="RetailBI_Dev"]}[Data],
+				    dbo_DimDate = RetailBI_Dev{[Schema="dbo",Item="DimDate"]}[Data]
+				in
+				    dbo_DimDate
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

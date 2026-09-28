@@ -1,0 +1,124 @@
+relationship 3be0d373-1cd0-b741-4950-15249e04f833
+	fromColumn: FactSales.DateKey
+	toColumn: DimDate.DateKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship 42946ff6-de7a-56c2-0fe0-d6ee74281b53
+	fromColumn: FactPurchases.DateKey
+	toColumn: DimDate.DateKey
+
+relationship bb00cc9a-9513-06d3-c484-9a43eb8eadc2
+	fromColumn: FactPayables.DueDateKey
+	toColumn: DimDate.DateKey
+
+relationship d0e167e1-259d-72d0-ad56-6d81dd4dca5e
+	fromColumn: FactReceivables.DateKey
+	toColumn: DimDate.DateKey
+
+relationship b371d1fe-993f-e9e6-aa62-a82598cd0c3f
+	fromColumn: FactPayments.DateKey
+	toColumn: DimDate.DateKey
+
+relationship c29dcf45-03b2-9241-a440-1bb49661b73a
+	fromColumn: FactExpenses.DateKey
+	toColumn: DimDate.DateKey
+
+relationship 798cb080-fbca-0813-30f4-981369ae26cd
+	fromColumn: FactSales.BusinessUnitKey
+	toColumn: DimBusinessUnit.BusinessUnitKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship e095513a-cb66-e995-a4d6-372deacd2423
+	fromColumn: FactPurchases.BusinessUnitKey
+	toColumn: DimBusinessUnit.BusinessUnitKey
+
+relationship 0fc3fc8e-de89-5286-c83f-b8d6443fcabe
+	fromColumn: FactPayables.BusinessUnitKey
+	toColumn: DimBusinessUnit.BusinessUnitKey
+
+relationship 6ce3130a-d3e0-4045-dd2c-13cff5ce8aca
+	fromColumn: FactReceivables.BusinessUnitKey
+	toColumn: DimBusinessUnit.BusinessUnitKey
+
+relationship bb2122b4-eb24-d590-f50b-0f5cc99a3242
+	fromColumn: FactReceivables.CustomerKey
+	toColumn: DimCustomer.CustomerKey
+
+relationship 9adec845-499c-7248-a2c1-ca6c3cdc099f
+	fromColumn: FactPurchases.SupplierKey
+	toColumn: DimSupplier.SupplierKey
+
+relationship 0e284332-c8a2-4fcf-f2dd-0eea6272ecb3
+	fromColumn: FactSales.EmployeeKey
+	toColumn: DimEmployee.EmployeeKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship fbe5698c-c7a4-6e23-ff97-3eb035e8551b
+	fromColumn: FactSales.ShiftKey
+	toColumn: DimShift.ShiftKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship 59bec40e-1224-c787-52a4-9465589d1bdc
+	fromColumn: FactPayments.PaymentMethodKey
+	toColumn: DimPaymentMethod.PaymentMethodKey
+
+relationship ed6f45e9-b594-5209-a0fd-fabf170921bd
+	fromColumn: FactExpenses.ExpenseAccountKey
+	toColumn: DimExpenseAccount.ExpenseAccountKey
+
+relationship a8c53cc1-b3d9-5e91-5acb-6eb0aa4ee9b1
+	fromColumn: DimProduct.CategoryKey
+	toColumn: DimCategory.CategoryKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship e4c46eee-f667-be7b-7d74-eeff0bba5338
+	fromColumn: FactPayments.BusinessUnitKey
+	toColumn: DimBusinessUnit.BusinessUnitKey
+
+relationship 0c59ee08-e748-bbb9-93c9-9f0a1e56a33d
+	fromColumn: FactExpenses.BusinessUnitKey
+	toColumn: DimBusinessUnit.BusinessUnitKey
+
+relationship 4d5d25a4-c54d-482a-54e9-8ee919ef58e3
+	fromColumn: FactPurchases.ProductKey
+	toColumn: DimProduct.ProductKey
+
+relationship f67fb586-bb46-59da-551f-952adce93030
+	fromColumn: FactSales.ProductKey
+	toColumn: DimProduct.ProductKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship d02b582c-037c-41a6-88b9-4e781c5922ae
+	isActive: false
+	fromColumn: DimCategory.BusinessUnitKey
+	toColumn: DimBusinessUnit.BusinessUnitKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship f6397800-a059-41cb-8a04-ba4e8f5a9df3
+	isActive: false
+	fromColumn: DimEmployee.BusinessUnitKey
+	toColumn: DimBusinessUnit.BusinessUnitKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship 92a5afef-b009-4fe1-9651-0c322b5ea32c
+	isActive: false
+	fromColumn: DimExpenseAccount.BusinessUnitKey
+	toColumn: DimBusinessUnit.BusinessUnitKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship 44c954a1-d7b7-481d-9a1f-efdef7cf4da5
+	isActive: false
+	fromColumn: DimProduct.BusinessUnitKey
+	toColumn: DimBusinessUnit.BusinessUnitKey
+
+	annotation PBI_IsFromSource = FS
+

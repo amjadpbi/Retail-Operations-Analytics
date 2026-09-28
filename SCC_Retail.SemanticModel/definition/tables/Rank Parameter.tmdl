@@ -1,0 +1,29 @@
+table 'Rank Parameter'
+	isHidden
+	lineageTag: 963c2ab5-afdb-41e0-89cc-43edce7a353f
+
+	measure 'Rank Parameter Value' = SELECTEDVALUE('Rank Parameter'[Rank Parameter])
+		formatString: 0
+		isHidden
+		lineageTag: 158985bd-49b2-46e9-9692-df8be70c6992
+
+	column 'Rank Parameter'
+		isHidden
+		formatString: 0
+		lineageTag: cec072cb-667b-4d67-a5f6-ba022a9e7c52
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition 'Rank Parameter' = calculated
+		mode: import
+		source = GENERATESERIES(0, 50, 1)
+
+	annotation PBI_Id = 20a98b35e39b4f5f913392672bb3835e
+

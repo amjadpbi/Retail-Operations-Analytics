@@ -1,0 +1,75 @@
+table DimCategory
+	lineageTag: 088f7b85-947d-4057-a044-b0a30f770dd9
+
+	column CategoryKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 04256a34-2068-481a-94a7-f4b7280b3739
+		summarizeBy: none
+		sourceColumn: CategoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CategoryCode
+		dataType: string
+		lineageTag: 74ede314-9baa-4dc3-9e4d-7e8528890c6b
+		summarizeBy: none
+		sourceColumn: CategoryCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column CategoryName
+		dataType: string
+		lineageTag: e53d150e-9675-408c-b115-27825522a977
+		summarizeBy: none
+		sourceColumn: CategoryName
+
+		annotation SummarizationSetBy = Automatic
+
+	column BusinessUnitKey
+		dataType: int64
+		formatString: 0
+		lineageTag: b2d8317a-bb5d-4660-9070-79eeb3717536
+		summarizeBy: none
+		sourceColumn: BusinessUnitKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsActive
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 26b18c55-550c-4f74-bff8-c2a1e18b8985
+		summarizeBy: none
+		sourceColumn: IsActive
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Category Display' = ```
+			
+			DimCategory[CategoryName] & " (" &
+			LOOKUPVALUE(
+			    DimBusinessUnit[BusinessUnitName],
+			    DimBusinessUnit[BusinessUnitKey],
+			    DimCategory[BusinessUnitKey]
+			) & ")"
+			
+			```
+		lineageTag: 3e0ebc2f-b67e-467c-a0ef-6b48e2e1eb0e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimCategory = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-HATC9ED"),
+				    RetailBI_Dev = Source{[Name="RetailBI_Dev"]}[Data],
+				    dbo_DimCategory = RetailBI_Dev{[Schema="dbo",Item="DimCategory"]}[Data]
+				in
+				    dbo_DimCategory
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

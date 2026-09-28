@@ -1,0 +1,128 @@
+table FactPayables
+	lineageTag: 42920680-aaeb-4009-a33b-1138ce2d45a4
+
+	column PayableKey
+		dataType: int64
+		formatString: 0
+		lineageTag: e754e429-81d7-4be3-b8fd-e592c82bef29
+		summarizeBy: count
+		sourceColumn: PayableKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 616bc83f-6403-42da-973b-3eeb275ec731
+		summarizeBy: count
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DueDateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: ae8542bb-8982-4566-9eae-d464f1d51a3d
+		summarizeBy: none
+		sourceColumn: DueDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column SupplierKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 8afd1daf-dc44-4833-b09e-75e2c3c357c9
+		summarizeBy: count
+		sourceColumn: SupplierKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column BusinessUnitKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 85b8a652-c6f6-47c3-98f4-0ef3dce8f3eb
+		summarizeBy: none
+		sourceColumn: BusinessUnitKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoiceNumber
+		dataType: string
+		lineageTag: 207e642a-e4c0-4710-b553-e56b87d45d66
+		summarizeBy: none
+		sourceColumn: InvoiceNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoiceAmount
+		dataType: double
+		lineageTag: 220c8f09-130c-47eb-bf0b-6bc5ddb72ee0
+		summarizeBy: sum
+		sourceColumn: InvoiceAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PaidAmount
+		dataType: double
+		lineageTag: 8b3f2dd1-ac9e-4d0c-ad67-7d0c4e31f0b4
+		summarizeBy: sum
+		sourceColumn: PaidAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DaysOutstanding
+		dataType: int64
+		formatString: 0
+		lineageTag: 02042adf-b9bc-4a32-93d5-723568358b7a
+		summarizeBy: sum
+		sourceColumn: DaysOutstanding
+
+		annotation SummarizationSetBy = Automatic
+
+	column PaymentDate
+		dataType: double
+		lineageTag: 4d47e2ea-a9f3-412a-9f8d-5250253568c2
+		summarizeBy: sum
+		sourceColumn: PaymentDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PaymentMethodKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 6e3702f2-e76f-456b-965b-321fa432a679
+		summarizeBy: count
+		sourceColumn: PaymentMethodKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OutstandingAmount
+		dataType: double
+		lineageTag: a193145a-8731-4505-8f76-306e9def3c43
+		summarizeBy: sum
+		sourceColumn: OutstandingAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition FactPayables = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-HATC9ED"),
+				    RetailBI_Dev = Source{[Name="RetailBI_Dev"]}[Data],
+				    dbo_FactPayables = RetailBI_Dev{[Schema="dbo",Item="FactPayables"]}[Data]
+				in
+				    dbo_FactPayables
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navigation
+

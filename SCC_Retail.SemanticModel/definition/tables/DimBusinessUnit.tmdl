@@ -1,0 +1,51 @@
+table DimBusinessUnit
+	lineageTag: 2e0639a5-f517-41d6-af56-6f463dbb3009
+
+	column BusinessUnitKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 0ce56adf-1228-42da-8960-de547e091860
+		summarizeBy: none
+		sourceColumn: BusinessUnitKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column BusinessUnitCode
+		dataType: string
+		lineageTag: c867928b-2722-4d1b-82df-c34fb0de2e68
+		summarizeBy: none
+		sourceColumn: BusinessUnitCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column BusinessUnitName
+		dataType: string
+		lineageTag: 34453ff5-27b9-4dad-bcb9-2522c58ea1a9
+		summarizeBy: none
+		sourceColumn: BusinessUnitName
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsActive
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 5c502982-d2d2-40eb-a155-01b643aa0521
+		summarizeBy: none
+		sourceColumn: IsActive
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimBusinessUnit = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-HATC9ED"),
+				    RetailBI_Dev = Source{[Name="RetailBI_Dev"]}[Data],
+				    dbo_DimBusinessUnit = RetailBI_Dev{[Schema="dbo",Item="DimBusinessUnit"]}[Data]
+				in
+				    dbo_DimBusinessUnit
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

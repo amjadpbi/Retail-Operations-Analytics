@@ -1,0 +1,79 @@
+table DimEmployee
+	lineageTag: 0fbbd0e6-5943-4ac4-8e49-422a5850e893
+
+	column EmployeeKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 9451392a-327a-4b73-9696-ee9c621590f1
+		summarizeBy: none
+		sourceColumn: EmployeeKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmployeeCode
+		dataType: string
+		lineageTag: 677c1153-ed77-45f8-b2a2-2c870973b2c7
+		summarizeBy: none
+		sourceColumn: EmployeeCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmployeeName
+		dataType: string
+		lineageTag: fa52dfaa-cdb5-4d81-9734-528b26ae6c4d
+		summarizeBy: none
+		sourceColumn: EmployeeName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Role
+		dataType: string
+		lineageTag: c3fc9a3c-7dda-4fb1-8e21-6580d7f5d775
+		summarizeBy: none
+		sourceColumn: Role
+
+		annotation SummarizationSetBy = Automatic
+
+	column BusinessUnitKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 612d26ad-c6b9-4cbc-be8f-a6add95062b0
+		summarizeBy: none
+		sourceColumn: BusinessUnitKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column JoiningDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c8fac083-f793-4642-927b-27d64b5cb66f
+		summarizeBy: none
+		sourceColumn: JoiningDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column IsActive
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: b3066af9-7a5e-48da-b48d-ab3d7993c3fe
+		summarizeBy: none
+		sourceColumn: IsActive
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimEmployee = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-HATC9ED"),
+				    RetailBI_Dev = Source{[Name="RetailBI_Dev"]}[Data],
+				    dbo_DimEmployee = RetailBI_Dev{[Schema="dbo",Item="DimEmployee"]}[Data]
+				in
+				    dbo_DimEmployee
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

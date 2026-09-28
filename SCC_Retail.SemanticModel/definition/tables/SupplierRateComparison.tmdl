@@ -1,0 +1,113 @@
+table SupplierRateComparison
+	isHidden
+	lineageTag: 85912f68-bf2e-4f00-bf4b-1c37dd3ad048
+
+	column ProductKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1e4fe08a-456e-4372-b35d-7cd06936cc45
+		summarizeBy: count
+		sourceColumn: ProductKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductName
+		dataType: string
+		isHidden
+		lineageTag: 75af0eeb-c919-46f3-b0ab-955a5e13d252
+		summarizeBy: none
+		sourceColumn: ProductName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SupplierKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5c1493d3-7378-4b23-8ef7-32e9428d8420
+		summarizeBy: count
+		sourceColumn: SupplierKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SupplierName
+		dataType: string
+		isHidden
+		lineageTag: 38212e14-0cdd-4298-8589-136b08d66bbb
+		summarizeBy: none
+		sourceColumn: SupplierName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column AvgUnitPrice
+		dataType: double
+		isHidden
+		lineageTag: 56e7e2ba-67d0-4812-98c0-61d9fe8d07eb
+		summarizeBy: sum
+		sourceColumn: AvgUnitPrice
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PurchaseOrders
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 598d0bd9-3e08-43b6-af71-368510a79074
+		summarizeBy: sum
+		sourceColumn: PurchaseOrders
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column MinPrice
+		dataType: double
+		isHidden
+		lineageTag: 48cfdbea-0870-4fe4-a54c-57d633005f9c
+		summarizeBy: sum
+		sourceColumn: MinPrice
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column MaxPrice
+		dataType: double
+		isHidden
+		lineageTag: 24273257-1f0a-41da-a2fc-d2a55845e8d9
+		summarizeBy: sum
+		sourceColumn: MaxPrice
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SupplierRateComparison = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-HATC9ED"),
+				    RetailBI_Dev = Source{[Name="RetailBI_Dev"]}[Data],
+				    dbo_SupplierRateComparison = RetailBI_Dev{[Schema="dbo",Item="SupplierRateComparison"]}[Data]
+				in
+				    dbo_SupplierRateComparison
+
+	changedProperty = IsHidden
+

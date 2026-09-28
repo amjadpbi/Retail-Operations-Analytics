@@ -1,0 +1,86 @@
+table FactExpenses
+	lineageTag: 44835f39-b301-4936-a6ae-cc8d16166c8b
+
+	column ExpenseKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 33a66aba-90f2-4ad5-894d-315e6fb84167
+		summarizeBy: count
+		sourceColumn: ExpenseKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: a371f7aa-ecd3-42dc-9722-c260ce9ebc6d
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column BusinessUnitKey
+		dataType: int64
+		formatString: 0
+		lineageTag: a75a05d4-39e6-4f4d-aeb8-cdb618cbcc70
+		summarizeBy: none
+		sourceColumn: BusinessUnitKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExpenseAccountKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 397af5f8-07e6-4873-b3a1-116fe86a1621
+		summarizeBy: none
+		sourceColumn: ExpenseAccountKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExpenseAmount
+		dataType: double
+		lineageTag: 30641757-964b-4611-9216-c4b26ebe9ba5
+		summarizeBy: sum
+		sourceColumn: ExpenseAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Description
+		dataType: string
+		lineageTag: a2072d4a-f4dd-4011-97b7-3805631ba778
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReferenceNumber
+		dataType: string
+		lineageTag: 6eb6c379-e8a8-453f-a0e4-e23cd5a2e33c
+		summarizeBy: none
+		sourceColumn: ReferenceNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column PaymentMethodKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 11eee292-cdc2-44b0-bfb5-639a25748079
+		summarizeBy: count
+		sourceColumn: PaymentMethodKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactExpenses = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-HATC9ED"),
+				    RetailBI_Dev = Source{[Name="RetailBI_Dev"]}[Data],
+				    dbo_FactExpenses = RetailBI_Dev{[Schema="dbo",Item="FactExpenses"]}[Data]
+				in
+				    dbo_FactExpenses
+
+	annotation PBI_ResultType = Table
+

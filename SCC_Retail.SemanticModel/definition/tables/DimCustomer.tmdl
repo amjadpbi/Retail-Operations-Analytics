@@ -1,0 +1,83 @@
+table DimCustomer
+	lineageTag: 02c15b1a-9bb3-42f8-9ee1-74bafa8669a2
+
+	column CustomerKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 71ff1e60-dcde-4c5a-bd6a-11c982f9d1c9
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerCode
+		dataType: string
+		lineageTag: 052a611c-a886-4ad5-86bd-8a15c93cfe43
+		summarizeBy: none
+		sourceColumn: CustomerCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerName
+		dataType: string
+		lineageTag: 94ad8d29-93fe-4aac-a796-dc883db01639
+		summarizeBy: none
+		sourceColumn: CustomerName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Phone
+		dataType: string
+		lineageTag: 10562434-e3e7-4237-b5b0-764797cf12d5
+		summarizeBy: none
+		sourceColumn: Phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: 3043f111-ad35-4aa4-998f-37ccaab61919
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerType
+		dataType: string
+		lineageTag: fe23eb85-cb92-4de3-97a1-5fbb4feb1c0c
+		summarizeBy: none
+		sourceColumn: CustomerType
+
+		annotation SummarizationSetBy = Automatic
+
+	column OpeningBalance
+		dataType: double
+		lineageTag: 8b150b26-4c85-4c14-8bd3-a6f5cc3f2e8f
+		summarizeBy: none
+		sourceColumn: OpeningBalance
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IsActive
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: c259f8ab-7bc8-4de3-b5dd-ca76a6134351
+		summarizeBy: none
+		sourceColumn: IsActive
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimCustomer = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-HATC9ED"),
+				    RetailBI_Dev = Source{[Name="RetailBI_Dev"]}[Data],
+				    dbo_DimCustomer = RetailBI_Dev{[Schema="dbo",Item="DimCustomer"]}[Data]
+				in
+				    dbo_DimCustomer
+
+	annotation PBI_ResultType = Table
+

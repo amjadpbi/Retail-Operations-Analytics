@@ -1,0 +1,105 @@
+table DimProduct
+	lineageTag: d2503ce3-4368-49b2-99d6-39a7c102fb73
+
+	column ProductKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 486e6956-f47e-42a1-8fcd-b7f0098b2109
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductCode
+		dataType: string
+		lineageTag: a0dd4229-e900-4af1-a77b-e5d4d072b4f5
+		summarizeBy: none
+		sourceColumn: ProductCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductName
+		dataType: string
+		lineageTag: 913bac97-c2e6-4b8f-ace7-e594cd4b67ac
+		summarizeBy: none
+		sourceColumn: ProductName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Barcode
+		dataType: string
+		lineageTag: 49f35512-57ce-4e12-bb0a-f2bafe64d11f
+		summarizeBy: none
+		sourceColumn: Barcode
+
+		annotation SummarizationSetBy = Automatic
+
+	column CategoryKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 15c27da2-66c4-4914-8f10-daeb2fe943c2
+		summarizeBy: none
+		sourceColumn: CategoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column BusinessUnitKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 91b3a938-e7d8-4c94-bfff-118a7d0cbdb1
+		summarizeBy: count
+		sourceColumn: BusinessUnitKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitOfMeasure
+		dataType: string
+		lineageTag: ed2a9296-a58a-4c06-b09e-66619ef86345
+		summarizeBy: none
+		sourceColumn: UnitOfMeasure
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReorderLevel
+		dataType: double
+		lineageTag: 4930faf2-2546-4bd5-a6dc-de5c1be72611
+		summarizeBy: sum
+		sourceColumn: ReorderLevel
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CurrentSalePrice
+		dataType: double
+		lineageTag: 60d57d8c-1c6d-4df1-b674-ee99ceae36bf
+		summarizeBy: sum
+		sourceColumn: CurrentSalePrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IsActive
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 4d2fa303-baf2-4420-9045-187d980069be
+		summarizeBy: none
+		sourceColumn: IsActive
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimProduct = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-HATC9ED"),
+				    RetailBI_Dev = Source{[Name="RetailBI_Dev"]}[Data],
+				    dbo_DimProduct = RetailBI_Dev{[Schema="dbo",Item="DimProduct"]}[Data]
+				in
+				    dbo_DimProduct
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

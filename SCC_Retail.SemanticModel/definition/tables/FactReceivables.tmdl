@@ -1,0 +1,97 @@
+table FactReceivables
+	lineageTag: 9f2c6436-a203-49cd-a987-20316dba27f1
+
+	column ReceivableKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 1420cc35-e9bd-4e97-b33b-a5fc5977bb62
+		summarizeBy: count
+		sourceColumn: ReceivableKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 9deeb47c-4953-4c81-9a22-346443941cd9
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DueDateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: babaa35f-7dd6-4071-9366-aeb71318d7e7
+		summarizeBy: count
+		sourceColumn: DueDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerKey
+		dataType: int64
+		formatString: 0
+		lineageTag: cdff561d-229f-4956-a744-a238398cb125
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column BusinessUnitKey
+		dataType: int64
+		formatString: 0
+		lineageTag: cf71f3f9-239f-4608-ab58-640e8c3612bf
+		summarizeBy: none
+		sourceColumn: BusinessUnitKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoiceNumber
+		dataType: string
+		lineageTag: 2c1444b9-1b0f-433b-af7c-d36d0bf4fdcd
+		summarizeBy: none
+		sourceColumn: InvoiceNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoiceAmount
+		dataType: double
+		lineageTag: 33ccfbeb-0f4a-4bf5-8d9c-bd5b9f937e21
+		summarizeBy: sum
+		sourceColumn: InvoiceAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PaidAmount
+		dataType: double
+		lineageTag: d4b40131-4485-44ec-ad00-a93ca3bfcb5b
+		summarizeBy: sum
+		sourceColumn: PaidAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DaysOutstanding
+		dataType: int64
+		formatString: 0
+		lineageTag: 13e3b57d-2e44-4bb6-9c2c-b801d3b6936f
+		summarizeBy: sum
+		sourceColumn: DaysOutstanding
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactReceivables = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-HATC9ED"),
+				    RetailBI_Dev = Source{[Name="RetailBI_Dev"]}[Data],
+				    dbo_FactReceivables = RetailBI_Dev{[Schema="dbo",Item="FactReceivables"]}[Data]
+				in
+				    dbo_FactReceivables
+
+	annotation PBI_ResultType = Table
+

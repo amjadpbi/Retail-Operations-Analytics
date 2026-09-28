@@ -1,0 +1,139 @@
+table FactSales
+	lineageTag: 303ec682-b444-4c1a-8740-78c5f3bcb379
+
+	column SalesKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 0441dd01-fea3-413f-883d-520d966a487f
+		summarizeBy: count
+		sourceColumn: SalesKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 3a159dcd-3d09-44c5-b41a-0eb9bef4efd5
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 1c0be705-5f21-48f7-bdb9-298032c2e49f
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column BusinessUnitKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 9e04b613-ba42-4090-99ea-e5d8d5290ecb
+		summarizeBy: none
+		sourceColumn: BusinessUnitKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmployeeKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 012bc76b-00ad-46e8-87a8-128e88d3ade1
+		summarizeBy: none
+		sourceColumn: EmployeeKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ShiftKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 956f78b5-a527-4cc9-a2ca-fa28e8ce0c7a
+		summarizeBy: none
+		sourceColumn: ShiftKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column TransactionHour
+		dataType: int64
+		formatString: 0
+		lineageTag: 7e419d4c-84c0-4c8f-96df-be6dce95394d
+		summarizeBy: sum
+		sourceColumn: TransactionHour
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: int64
+		lineageTag: 8ffa70d1-d6c3-42a6-bb98-42ce3bdbb459
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UnitSalePrice
+		dataType: double
+		lineageTag: 2ed83e0c-fff2-41f2-9aec-0c683309cc4c
+		summarizeBy: sum
+		sourceColumn: UnitSalePrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DiscountAmount
+		dataType: double
+		lineageTag: 81abd275-7703-4657-ac42-435213d0d7bc
+		summarizeBy: sum
+		sourceColumn: DiscountAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TotalSaleAmount
+		dataType: double
+		lineageTag: b0327f85-e2ce-480a-9f5a-1a846ea7dd99
+		summarizeBy: sum
+		sourceColumn: TotalSaleAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NetSaleAmount
+		dataType: double
+		lineageTag: 3e1a90c9-5a28-44f3-b6f2-9337f81fc3f8
+		summarizeBy: sum
+		sourceColumn: NetSaleAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PaymentMethodKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 6581b9b2-13ce-49f3-905e-29e95b616c7d
+		summarizeBy: count
+		sourceColumn: PaymentMethodKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactSales = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-HATC9ED"),
+				    RetailBI_Dev = Source{[Name="RetailBI_Dev"]}[Data],
+				    dbo_FactSales = RetailBI_Dev{[Schema="dbo",Item="FactSales"]}[Data]
+				in
+				    dbo_FactSales
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

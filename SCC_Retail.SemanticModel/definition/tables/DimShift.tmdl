@@ -1,0 +1,62 @@
+table DimShift
+	lineageTag: 7341db46-b8ee-427e-9b25-063f1bd9796b
+
+	column ShiftKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 5e132bd0-6db8-4bd7-bb59-e6efb09e5466
+		summarizeBy: none
+		sourceColumn: ShiftKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ShiftCode
+		dataType: string
+		lineageTag: 77513e23-6b1b-4f33-85a6-c5feb90b9a8c
+		summarizeBy: none
+		sourceColumn: ShiftCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column ShiftName
+		dataType: string
+		lineageTag: ddb17da1-2b44-46f1-9a6c-c7d30075b9c6
+		summarizeBy: none
+		sourceColumn: ShiftName
+
+		annotation SummarizationSetBy = Automatic
+
+	column StartTime
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 7a169363-50bc-4539-8aaf-7636a51ab952
+		summarizeBy: none
+		sourceColumn: StartTime
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column EndTime
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: a83b8aa9-7711-4c61-be46-777c8b46d9d5
+		summarizeBy: none
+		sourceColumn: EndTime
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	partition DimShift = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-HATC9ED"),
+				    RetailBI_Dev = Source{[Name="RetailBI_Dev"]}[Data],
+				    dbo_DimShift = RetailBI_Dev{[Schema="dbo",Item="DimShift"]}[Data]
+				in
+				    dbo_DimShift
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "SCC_Retail"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "210f90de-c8f3-4c66-a260-4af65bcd8264"
+  }
+}

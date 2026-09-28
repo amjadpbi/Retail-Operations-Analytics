@@ -1,0 +1,85 @@
+table DimSupplier
+	lineageTag: 5029dc9e-378b-4fdd-9128-795217a0f443
+
+	column SupplierKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 44708ef0-fe3f-4725-8d70-f82a29be8eae
+		summarizeBy: none
+		sourceColumn: SupplierKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column SupplierCode
+		dataType: string
+		lineageTag: 3d80eba0-df86-4a8c-a8bd-b0cfa11372f7
+		summarizeBy: none
+		sourceColumn: SupplierCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column SupplierName
+		dataType: string
+		lineageTag: 7329686f-f8e8-421c-a811-66f9c11b47c5
+		summarizeBy: none
+		sourceColumn: SupplierName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ContactPerson
+		dataType: string
+		lineageTag: 32de6d36-0ddc-4c98-9f38-58fe6d3007de
+		summarizeBy: none
+		sourceColumn: ContactPerson
+
+		annotation SummarizationSetBy = Automatic
+
+	column Phone
+		dataType: string
+		lineageTag: 093fab23-93d9-4491-848c-f16cf8bf898c
+		summarizeBy: none
+		sourceColumn: Phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: 51b5302c-bbfb-43b3-b920-d89f7228c226
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column OpeningBalance
+		dataType: double
+		lineageTag: 3174567a-2bec-41b5-87f4-53541ca58a9c
+		summarizeBy: none
+		sourceColumn: OpeningBalance
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IsActive
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: bbfbf69a-b3b9-4041-849a-8f50d7696e33
+		summarizeBy: none
+		sourceColumn: IsActive
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimSupplier = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-HATC9ED"),
+				    RetailBI_Dev = Source{[Name="RetailBI_Dev"]}[Data],
+				    dbo_DimSupplier = RetailBI_Dev{[Schema="dbo",Item="DimSupplier"]}[Data]
+				in
+				    dbo_DimSupplier
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

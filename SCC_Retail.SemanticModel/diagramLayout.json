@@ -1,0 +1,282 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 721.512011584891,
+        "y": 389.70556181282694
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 553.01676022966137,
+            "y": 0
+          },
+          "nodeIndex": "DimBusinessUnit",
+          "nodeLineageTag": "2e0639a5-f517-41d6-af56-6f463dbb3009",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 15
+        },
+        {
+          "location": {
+            "x": 239.68508540694552,
+            "y": 314.97522578905728
+          },
+          "nodeIndex": "DimCategory",
+          "nodeLineageTag": "088f7b85-947d-4057-a044-b0a30f770dd9",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 16
+        },
+        {
+          "location": {
+            "x": 762.7153017287668,
+            "y": 540.28212990981808
+          },
+          "nodeIndex": "DimCustomer",
+          "nodeLineageTag": "02c15b1a-9bb3-42f8-9ee1-74bafa8669a2",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 242.27357013493537,
+            "y": 0
+          },
+          "nodeIndex": "DimDate",
+          "nodeLineageTag": "ae29130b-24eb-445e-a942-1d0e50483f5a",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 14
+        },
+        {
+          "location": {
+            "x": 204.731010451766,
+            "y": 1192.2552690593695
+          },
+          "nodeIndex": "DimEmployee",
+          "nodeLineageTag": "0fbbd0e6-5943-4ac4-8e49-422a5850e893",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 1539.5854359699347,
+            "y": 1166.1378397368387
+          },
+          "nodeIndex": "DimExpenseAccount",
+          "nodeLineageTag": "5c062fbe-bed3-45df-80af-90de940756b9",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 1268.7412015302193,
+            "y": 1190.9084885690256
+          },
+          "nodeIndex": "DimPaymentMethod",
+          "nodeLineageTag": "d201e5e9-ac21-4443-9493-f959381fc3a5",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 235.73731474029481,
+            "y": 539.06946274387781
+          },
+          "nodeIndex": "DimProduct",
+          "nodeLineageTag": "d2503ce3-4368-49b2-99d6-39a7c102fb73",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 18
+        },
+        {
+          "location": {
+            "x": 459.4545958539793,
+            "y": 1192.0160533999608
+          },
+          "nodeIndex": "DimShift",
+          "nodeLineageTag": "7341db46-b8ee-427e-9b25-063f1bd9796b",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 500.99751786383354,
+            "y": 546.29656862862851
+          },
+          "nodeIndex": "DimSupplier",
+          "nodeLineageTag": "5029dc9e-378b-4fdd-9128-795217a0f443",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 19
+        },
+        {
+          "location": {
+            "x": 1535.5420622290862,
+            "y": 860.99775167186544
+          },
+          "nodeIndex": "FactExpenses",
+          "nodeLineageTag": "44835f39-b301-4936-a6ae-cc8d16166c8b",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 747.67851870144125,
+            "y": 855.95383658039543
+          },
+          "nodeIndex": "FactPayables",
+          "nodeLineageTag": "42920680-aaeb-4009-a33b-1138ce2d45a4",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 1267.2043337426737,
+            "y": 852.53918633149613
+          },
+          "nodeIndex": "FactPayments",
+          "nodeLineageTag": "a58716c7-8899-43d6-86e5-afe170a15940",
+          "size": {
+            "height": 295.83463903887542,
+            "width": 234
+          },
+          "zIndex": 13
+        },
+        {
+          "location": {
+            "x": 490.43152780103264,
+            "y": 860.02934525046317
+          },
+          "nodeIndex": "FactPurchases",
+          "nodeLineageTag": "cf27242c-718f-4b71-818f-b3f952b482ab",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 1006.0505426624873,
+            "y": 852.32767903702984
+          },
+          "nodeIndex": "FactReceivables",
+          "nodeLineageTag": "9f2c6436-a203-49cd-a987-20316dba27f1",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 17
+        },
+        {
+          "location": {
+            "x": 236.30693597121092,
+            "y": 863.81123112920307
+          },
+          "nodeIndex": "FactSales",
+          "nodeLineageTag": "303ec682-b444-4c1a-8740-78c5f3bcb379",
+          "size": {
+            "height": 268.22048128149942,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 2148.4895232861891,
+            "y": 558.29085252968525
+          },
+          "nodeIndex": "_Measures",
+          "nodeLineageTag": "d61e4749-1f80-416c-be89-f064195d1118",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 2412.0008568344224,
+            "y": 656.12763452968477
+          },
+          "nodeIndex": "Top/Bottom",
+          "nodeLineageTag": "5ef08e6d-ce79-478d-a632-e02c431ac76e",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 2691.4562393826554,
+            "y": 721.50753852968444
+          },
+          "nodeIndex": "Rank Parameter",
+          "nodeLineageTag": "963c2ab5-afdb-41e0-89cc-43edce7a353f",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 2200.64166422184,
+            "y": 862.48875011027542
+          },
+          "nodeIndex": "SupplierRateComparison",
+          "nodeLineageTag": "85912f68-bf2e-4f00-bf4b-1c37dd3ad048",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 44.905697313104135,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

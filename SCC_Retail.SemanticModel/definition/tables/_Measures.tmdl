@@ -1,0 +1,492 @@
+table _Measures
+	lineageTag: d61e4749-1f80-416c-be89-f064195d1118
+
+	measure 'Net Sales' = ```
+			
+			    SUM(FactSales[NetSaleAmount])
+			```
+		displayFolder: Executive Summary
+		lineageTag: 240410b2-1826-4f76-b010-c06de39d9964
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure COGS = ```
+			
+			    SUMX(
+			        VALUES(DimProduct[ProductKey]),
+			        VAR QtySold =
+			            CALCULATE(SUM(FactSales[Quantity]))
+			        VAR AvgCost =
+			            CALCULATE(
+			                AVERAGE(FactPurchases[UnitPurchasePrice]),
+			                REMOVEFILTERS(DimDate)
+			            )
+			        RETURN
+			            QtySold * AvgCost
+			    )
+			```
+		displayFolder: Executive Summary
+		lineageTag: fac106af-5399-4247-ae88-c000962a0bdf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Gross Profit' = ```
+			
+			    [Net Sales] - [COGS]
+			```
+		displayFolder: Executive Summary
+		lineageTag: 14e3396c-f760-42db-b85a-2fb5ecddef36
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Expenses' = ```
+			
+			    SUM(FactExpenses[ExpenseAmount])
+			-- All expense accounts summed. No BU split here.
+			-- Shared expenses already at 50/50 in data so combined
+			-- total is the true business total when both BUs selected.
+			```
+		displayFolder: Executive Summary
+		lineageTag: 47566e39-9338-49b6-a4e0-46cd31fa83a5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Net Profit' = ```
+			
+			    [Gross Profit] - [Total Expenses]
+			```
+		displayFolder: Executive Summary
+		lineageTag: 4265fa3b-bbeb-4888-b135-c2b45c077715
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Page Title' = ```
+			
+			VAR SelectedBU =
+			    SELECTEDVALUE(DimBusinessUnit[BusinessUnitName], "All Business Units")
+			RETURN
+			    IF(
+			        SelectedBU = "All Business Units",
+			        " Executive Summary",
+			        SelectedBU & " — Executive Summary"
+			    )
+			
+			
+			```
+		displayFolder: Utility
+		lineageTag: 96d1b71e-a1ef-4321-bfcf-3152f9f265a3
+
+	measure 'Prev Month Daily Sales' = ```
+			
+			    VAR CurrentDate =
+			        SELECTEDVALUE(DimDate[Date])
+			    VAR PrevMonthDate =
+			        EDATE(CurrentDate, -1)
+			    RETURN
+			        CALCULATE(
+			            SUM(FactSales[NetSaleAmount]),
+			            FILTER(
+			                ALL(DimDate),
+			                DimDate[Date] = PrevMonthDate
+			            )
+			        )
+			```
+		displayFolder: Sales Analysis
+		lineageTag: 80d881a2-6a34-4396-935e-f7cd74f90b28
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Cash Closing Balance' = ```
+			
+			    VAR LastDay =
+			        MAXX(
+			            FILTER(
+			                ALL(FactPayments),
+			                FactPayments[PaymentMethodKey] = 1
+			                    && FactPayments[DateKey]
+			                       IN VALUES(DimDate[DateKey])
+			            ),
+			            FactPayments[DateKey]
+			        )
+			    RETURN
+			        CALCULATE(
+			            SUM(FactPayments[ClosingBalance]),
+			            FactPayments[PaymentMethodKey] = 1,
+			            FactPayments[DateKey] = LastDay,
+			            ALL(DimDate)
+			        )
+			```
+		displayFolder: Executive Summary
+		lineageTag: 62f10bda-b127-4b9b-9331-f09be398531d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Bank Closing Balance' = ```
+			
+			    VAR LastDay =
+			        MAXX(
+			            FILTER(
+			                ALL(FactPayments),
+			                FactPayments[PaymentMethodKey] = 2
+			                    && FactPayments[DateKey]
+			                       IN VALUES(DimDate[DateKey])
+			            ),
+			            FactPayments[DateKey]
+			        )
+			    RETURN
+			        CALCULATE(
+			            SUM(FactPayments[ClosingBalance]),
+			            FactPayments[PaymentMethodKey] = 2,
+			            FactPayments[DateKey] = LastDay,
+			            ALL(DimDate)
+			        )
+			```
+		displayFolder: Executive Summary
+		lineageTag: 74387b77-a5f7-4db6-be8f-9bf21a3d2e70
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Wallet Closing Balance' = ```
+			
+			    VAR LastDay =
+			        MAXX(
+			            FILTER(
+			                ALL(FactPayments),
+			                FactPayments[PaymentMethodKey] = 3
+			                    && FactPayments[DateKey]
+			                       IN VALUES(DimDate[DateKey])
+			            ),
+			            FactPayments[DateKey]
+			        )
+			    RETURN
+			        CALCULATE(
+			            SUM(FactPayments[ClosingBalance]),
+			            FactPayments[PaymentMethodKey] = 3,
+			            FactPayments[DateKey] = LastDay,
+			            ALL(DimDate)
+			        )
+			
+			```
+		displayFolder: Executive Summary
+		lineageTag: 478b0304-a484-4fa1-91d6-1ecea497d739
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Cash Position' = ```
+			
+			    [Cash Closing Balance]
+			    + [Bank Closing Balance]
+			    + [Wallet Closing Balance]
+			```
+		displayFolder: Executive Summary
+		lineageTag: 6edcdf46-709d-4184-a3ff-dd87e84f7927
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Net Profit %' = ```
+			
+			    DIVIDE([Net Profit], [Net Sales], 0)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Executive Summary
+		lineageTag: 2ff8ddd1-f823-4fd6-93c8-6f4a096436a0
+
+	measure 'System Stock Qty' =
+			
+			VAR allPurchased =
+			    CALCULATE(
+			        SUM(FactPurchases[Quantity]),
+			        ALL(DimDate)
+			    )
+			VAR allSold =
+			    CALCULATE(
+			        SUM(FactSales[Quantity]),
+			        ALL(DimDate)
+			    )
+			RETURN
+			    allPurchased - allSold
+		displayFolder: Inventory
+		lineageTag: 67329ebe-1d7f-42e9-a626-dcc7184312ab
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last 7 Days Qty Sold' =
+			
+			VAR MAXDate = CALCULATE(MAX(DimDate[Date]), ALL(DimDate))
+			VAR startDate = MAXDate - 6
+			RETURN
+			CALCULATE(
+			    SUM(FactSales[Quantity]),
+			    DimDate[Date] >= startDate && DimDate[Date] <= MAXDate
+			)
+		formatString: 0
+		displayFolder: Sales Analysis
+		lineageTag: 658f3d39-c240-477a-a7d2-24848c0c6854
+
+	measure 'Last 7 Days Avg Daily Sales' =
+			
+			DIVIDE([Last 7 Days Qty Sold], 7, 0)
+		displayFolder: Sales Analysis
+		lineageTag: fdbad4af-f34a-4c97-96a3-ec478de6c1f5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Next Week Predicted Demand' =
+			
+			[Last 7 Days Avg Daily Sales] * 7
+		displayFolder: Replenishment
+		lineageTag: 94cf09ba-8e89-4e15-bfd3-8951cef51d05
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Restock Qty Needed' =
+			
+			VAR stockNow   = [System Stock Qty]
+			VAR nextWeek   = [Next Week Predicted Demand]
+			VAR gap        = nextWeek - stockNow
+			RETURN
+			    IF(gap > 0, gap, 0)
+		displayFolder: Replenishment
+		lineageTag: 0cf35bdb-c703-4dab-b6c1-18a204b856b2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Restock Alert Status' =
+			
+			VAR stockNow  = [System Stock Qty]
+			VAR reorder   = MAX(DimProduct[ReorderLevel])
+			VAR nextWeek  = [Next Week Predicted Demand]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    stockNow <= 0,               "Out of Stock",
+			    stockNow < reorder,          "Below Reorder",
+			    stockNow < nextWeek,         "Restock This Week",
+			    "OK"
+			)
+		displayFolder: Replenishment
+		lineageTag: 21d82a9d-0726-48a0-bfb1-72d6e1fb5011
+
+	measure 'Last Sale Date' =
+			
+			CALCULATE(
+			    MAX(DimDate[Date]),
+			    FactSales,
+			    ALL(DimDate)
+			)
+		formatString: dd/mm/yyyy
+		displayFolder: Inventory
+		lineageTag: 6c79d8db-bb53-45af-9420-3ac0b1c8a874
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	measure 'Days Since Last Sale' =
+			
+			VAR lastSale = [Last Sale Date]
+			RETURN
+			    IF(
+			        ISBLANK(lastSale),
+			        999,
+			        DATEDIFF(lastSale, MAX(DimDate[Date]), DAY)
+			    )
+		formatString: 0
+		displayFolder: Inventory
+		lineageTag: 0f1e6927-8c46-4d44-b35b-d84db12c43dc
+
+	measure 'Dead Stock Aging Bucket' = ```
+			
+			VAR d = [Days Since Last Sale]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    d = 999,    "Never Sold",
+			    d >= 90,    "90+ Days",
+			    d >= 60,    "60-90 Days",
+			    d >= 30,    "30-60 Days",
+			    "Active"
+			)
+			
+			```
+		displayFolder: Inventory
+		lineageTag: 0b480fd5-c48c-4514-ac70-16bad3825272
+
+	measure 'Last Purchase Cost' =
+			
+			VAR lastDateKey =
+			    CALCULATE(
+			        MAX(FactPurchases[DateKey]),
+			        ALL(DimDate)
+			    )
+			RETURN
+			    CALCULATE(
+			        AVERAGE(FactPurchases[UnitPurchasePrice]),
+			        ALL(DimDate),
+			        FactPurchases[DateKey] = lastDateKey
+			    )
+		displayFolder: Inventory
+		lineageTag: 0673272f-5c38-4bfc-bccf-84aa59a256cb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sale diff' = CALCULATE([Net Sales]-[Prev Month Daily Sales])
+		displayFolder: Executive Summary
+		lineageTag: 483b47c6-beb1-472d-9858-720720afdba4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Supplier Count Per Product' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(FactPurchases[SupplierKey])
+			)
+		formatString: 0
+		displayFolder: Supplier & Purchasing
+		lineageTag: cb2f04d9-9cc2-49f0-ad6c-76fdd1dbe6a1
+
+	measure 'Dynamic Rank' = ```
+			
+			IF (
+			    SELECTEDVALUE('Top/Bottom'[Column1]) = "Top",
+			    RANKX(
+			        ALLSELECTED(DimProduct[ProductName]),
+			        [Net Sales],
+			        ,
+			        DESC,
+			        Dense),
+			      RANKX(
+			        ALLSELECTED(DimProduct[ProductName]),
+			        [Net Sales],
+			        ,
+			        ASC,
+			        Dense)  
+			)
+			```
+		formatString: 0
+		displayFolder: Ranking & Parameters
+		lineageTag: fe3531df-e656-4a82-a0e6-f07f2a46aabc
+
+	measure Condition =
+			
+			IF(
+			    [Dynamic Rank] <= 'Rank Parameter'[Rank Parameter Value],
+			    1,
+			    0
+			)
+		formatString: 0
+		displayFolder: Ranking & Parameters
+		lineageTag: 93f2957b-60c3-4372-a101-d6e664a203f0
+
+	measure 'KPI Out of Stock Count' =
+			
+			CALCULATE(
+			    COUNTROWS(DimProduct),
+			    FILTER(DimProduct, [Restock Alert Status] = "Out of Stock")
+			)
+		formatString: 0
+		displayFolder: Inventory
+		lineageTag: 7fc55b83-0a47-40b6-a756-4af592259ceb
+
+	measure 'Inactive Products' =
+			
+			CALCULATE(
+			    COUNTROWS(DimProduct),
+			    FILTER(DimProduct, [Dead Stock Aging Bucket] = "Never Sold")
+			)
+		formatString: 0
+		displayFolder: Inventory
+		lineageTag: c2277677-4026-4dd7-a1a6-38b3bea93f1b
+
+	measure 'Inactive Stock Value' =
+			
+			SUMX(
+			    FILTER(
+			        DimProduct,
+			        DimProduct[IsActive] = TRUE()
+			            && [Days Since Last Sale] >= 30
+			    ),
+			    [System Stock Qty] * [Last Purchase Cost]
+			)
+		formatString: "Rs"#,0;-"Rs"#,0;"Rs"#,0
+		displayFolder: Inventory
+		lineageTag: 67fe5bea-bb39-4efc-92c4-62ad7ad12599
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-PK"}
+
+	measure 'Product Revenue' =
+			
+			SUM(FactSales[NetSaleAmount])
+		displayFolder: Inventory
+		lineageTag: 160ff426-8aa3-4218-aad3-b86bc33d068c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Revenue All Products' =
+			
+			CALCULATE(
+			    [Product Revenue],
+			    ALL(DimProduct)
+			)
+		displayFolder: Sales Analysis
+		lineageTag: 5c1d6679-b068-45fe-a765-d70225dd0fa7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Top 10 Products Revenue Share %' =
+			
+			VAR Top10Revenue =
+			    SUMX(
+			        TOPN(
+			            10,
+			            ALL(DimProduct[ProductName]),
+			            [Product Revenue],
+			            DESC
+			        ),
+			        [Product Revenue]
+			    )
+			RETURN
+			    DIVIDE(Top10Revenue, [Total Revenue All Products], 0)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Sales Analysis
+		lineageTag: ab1ff3d0-8e27-40b8-a770-82d802131847
+
+	measure 'Estimated Supplier Overpay' = ```
+			
+			SUMX(
+			    SupplierRateComparison,
+			    (SupplierRateComparison[AvgUnitPrice] 
+			        - SupplierRateComparison[MinPrice])
+			        * SupplierRateComparison[PurchaseOrders]
+			)
+			```
+		formatString: "Rs"#,0;-"Rs"#,0;"Rs"#,0
+		displayFolder: Supplier & Purchasing
+		lineageTag: e83ebe38-64fa-43ca-b555-755a4e363e76
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-PK"}
+
+	measure 'Page 2 Title' = ```
+			
+			VAR SelectedBU =
+			    SELECTEDVALUE(DimBusinessUnit[BusinessUnitName], "All Business Units")
+			RETURN
+			    IF(
+			        SelectedBU = "All Business Units",
+			        "Products and Supplier Intelligence",
+			        SelectedBU & " — Products and Supplier Intelligence"
+			    )
+			
+			```
+		displayFolder: Utility
+		lineageTag: c3a5aa36-ceec-4fe3-b87a-1993f9ab0d9d
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Removed Columns" = Table.RemoveColumns(Source,{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

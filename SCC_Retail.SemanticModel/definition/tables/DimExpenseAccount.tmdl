@@ -1,0 +1,68 @@
+table DimExpenseAccount
+	lineageTag: 5c062fbe-bed3-45df-80af-90de940756b9
+
+	column ExpenseAccountKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 296655ab-1d62-4f65-a9e4-5142848f9b52
+		summarizeBy: none
+		sourceColumn: ExpenseAccountKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountCode
+		dataType: string
+		lineageTag: f49a5ea3-45d3-44b9-8e97-f44023bcd1e8
+		summarizeBy: none
+		sourceColumn: AccountCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountName
+		dataType: string
+		lineageTag: 2755ff2e-dcd5-4f7a-8f63-38fb5ed01eaf
+		summarizeBy: none
+		sourceColumn: AccountName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ParentAccount
+		dataType: string
+		lineageTag: 0b3fb7a1-968a-4e67-8598-986914c26d1e
+		summarizeBy: none
+		sourceColumn: ParentAccount
+
+		annotation SummarizationSetBy = Automatic
+
+	column BusinessUnitKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 357d05ee-0594-4d48-b58b-f7fb8345ce8f
+		summarizeBy: none
+		sourceColumn: BusinessUnitKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsActive
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 81e63596-df28-4f04-ba3d-b1693840aee4
+		summarizeBy: none
+		sourceColumn: IsActive
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimExpenseAccount = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("DESKTOP-HATC9ED"),
+				    RetailBI_Dev = Source{[Name="RetailBI_Dev"]}[Data],
+				    dbo_DimExpenseAccount = RetailBI_Dev{[Schema="dbo",Item="DimExpenseAccount"]}[Data]
+				in
+				    dbo_DimExpenseAccount
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
