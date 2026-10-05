@@ -1,14 +1,14 @@
 # Retail BI — Power BI Solution for Multi-Category Retail Operations
 
-**Muhammad Amjad | Power BI Specialist | Pipeline-First**
+**Muhammad Amjad | Data & BI Analyst | Pipeline-First**
 
-A complete retail business intelligence solution built from scratch on real operational problems. Two years of simulated data. Two report pages. Every feature maps to a question the business owner actually asks.
+A self-initiated retail analytics project built around realistic operational questions using two years of simulated data. Two report pages focus on sales, profitability, product, supplier and inventory analysis.
 
 ---
 
 ## The Problem
 
-A multi-category retail store was running blind:
+The scenario models a multi-category retail business with common reporting and operational challenges:
 
 - Weekly manual POS exports, cleaned and formatted by hand
 - No visibility into which products drive revenue and which lock up capital
@@ -16,7 +16,7 @@ A multi-category retail store was running blind:
 - Stock counts shutting the business down 3 times in 18 months
 - Margin erosion happening silently as purchase costs rose but sale prices did not move
 
-This project replaces all of that with an automated, always-on BI system.
+This project addresses those questions through a SQL Server-backed analytical model and Power BI reporting layer.
 
 ---
 
@@ -56,7 +56,7 @@ Star schema. 7 fact tables. 10 dimension tables. 455 real Pakistani retail produ
 
 **Dimension Tables:** DimDate, DimProduct, DimCategory, DimBusinessUnit, DimSupplier, DimCustomer, DimPaymentMethod, DimEmployee, DimShift, DimExpenseAccount
 
-**Patterns embedded in simulation data:**
+**Patterns embedded in the simulated dataset:**
 - Eid spike: 3x Shopping Center volume for 5 days around each Eid
 - Ramadan spike: 1.6x Grocery volume across Ramadan period
 - Weekend boost: 1.3x both units on Friday and Saturday
